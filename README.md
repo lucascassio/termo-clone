@@ -1,6 +1,6 @@
 ## Clone do Site Termo
 
-Termo é um site popular onde os jogadores tentam adivinhar uma palavra oculta a partir de dicas limitadas. Este projeto foi desenvolvido com o intuito de aprender e praticar programação web.
+  Termo é um site popular onde os jogadores tentam adivinhar uma palavra oculta a partir de dicas limitadas. Este projeto foi desenvolvido com o intuito de aprender e praticar programação web.
 
 ## Funcionalidades
 
