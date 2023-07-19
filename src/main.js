@@ -5,6 +5,8 @@ var input = ['t', 'e', 'r', 'm', 'o'];
 
 const list = "list";
 
+var NUMBER_OF_GUESSES;
+
 function verifyWord() {
 
     if(word.length != 5 || list.find() != word)  return;
@@ -31,3 +33,20 @@ document.addEventListener("keydown", (event) => {
     }
 });
 
+function initBoard() {
+    let board = document.getElementById("word-container");
+
+    for (let i = 0; i < NUMBER_OF_GUESSES; i++) {
+        let row = document.createElement("div")
+        row.className = "letter-row"
+        
+        for (let j = 0; j < 5; j++) {
+            let box = document.createElement("div")
+            box.className = "letter-box"
+            row.appendChild(box)
+        }
+
+        board.appendChild(row);
+    }
+}
+initBoard();
