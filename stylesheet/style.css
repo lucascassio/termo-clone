@@ -25,6 +25,14 @@ body {
       cursor: pointer;
     }
 
+    .keyboard button.enter {
+      width: 110px; /* Largura maior para o botão "Enter" */
+    }
+
+    .keyboard button.backspace {
+      width: 70px; /* Largura menor para o botão "Backspace" */
+    }
+
     @media (max-width: 480px) {
       .keyboard button {
         width: 40px;
@@ -35,6 +43,16 @@ body {
 
 h1 {
   color: #333;
+  font-weight: 600;
+  font-size: 4vh;
+  line-height: 6vh;
+  height: 6vh;
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #word-container {
