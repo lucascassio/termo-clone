@@ -62,10 +62,6 @@ h1 {
   color: #333;
 }
 
-#guess-container {
-  margin-top: 20px;
-}
-
 #guess-input {
   padding: 8px;
   font-size: 16px;
@@ -87,10 +83,11 @@ h1 {
   color: #333;
 }
 
-#game-board {
+#word-container {
   display: flex;
   align-items: center;
   flex-direction: column;
+  justify-content: center;
 }
 
 .letter-box {
@@ -115,3 +112,14 @@ h1 {
   display: flex;
 }
 
+.wrong-letter {
+  color: red;
+}
+
+.middle-letter {
+  color: yellow;
+}
+
+.right-letter {
+  color: green;
+}
