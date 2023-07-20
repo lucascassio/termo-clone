@@ -9,31 +9,54 @@ var NUMBER_OF_GUESSES = 6;
 var guessesRemaining = NUMBER_OF_GUESSES;
 let nextLetter = 0; 
 
-function verifyWord() {
-    let palavra = '';
+function unifyWord(userGuess){
+    let palavra = "";
 
     for (let index = 0; index < userGuess.length; index++) {
-     palavra += userGuess[index];
+      palavra += userGuess[index];
     }
 
-    if(userGuess.length != 5 || !list.includes(palavra))  return;
+    return palavra;
+}
 
-    for (let i = 0; i < 5; i++) {
-        if(word.includes(userGuess[i])) {
-            if(word[i] === userGuess[i]) {
-                let row = document.getElementsByClassName("letter-row")[6 - guessesRemaining];
-                let box = row.children[i];
-                box.classList.add('right-letter');
-            } else {
-                let row = document.getElementsByClassName("letter-row")[6 - guessesRemaining];
-                let box = row.children[i];
-                box.classList.add('middle-letter');
-            }
-        } else {
-            let row = document.getElementsByClassName("letter-row")[6 - guessesRemaining];
-            let box = row.children[i];
-            box.classList.add('wrong-letter');
-        }
+function verifyWord() {
+
+    try {
+        let palavra = unifyWord(userGuess)
+        if(userGuess.length != 5 || !list.includes(palavra)) throw new TypeError("Palavra Invalida");
+         for (let i = 0; i < 5; i++) {
+           if (word.includes(userGuess[i])) {
+             if (word[i] === userGuess[i]) {
+               let row =
+                 document.getElementsByClassName("letter-row")[
+                   6 - guessesRemaining
+                 ]
+               let box = row.children[i]
+               box.classList.add("right-letter")
+             } else {
+               let row =
+                 document.getElementsByClassName("letter-row")[
+                   6 - guessesRemaining
+                 ]
+               let box = row.children[i]
+               box.classList.add("middle-letter")
+             }
+           } else {
+             let row =
+               document.getElementsByClassName("letter-row")[
+                 6 - guessesRemaining
+               ]
+             let box = row.children[i]
+             box.classList.add("wrong-letter")
+           }
+         }
+
+         if (palavra === word) {
+           alert("Parabéns")
+         }
+
+    } catch ({name, message}) {
+        alert(message);
     }
 
 }
@@ -51,8 +74,8 @@ function insertLetter(key) {
 
 function deleteLetter() {
     let row = document.getElementsByClassName("letter-row")[6 - guessesRemaining]
-    let box = row.children[nextLetter - 1]
-    box.textContent = '';
+    let box = row.children[nextLetter-1]
+    box.textContent = " ";
     userGuess.pop();
     nextLetter--;
     box.classList.remove("filled-box");
@@ -91,6 +114,24 @@ document.addEventListener("keydown", (event) => {
     guessesRemaining--; 
     }
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const buttons = document.getElementsByTagName("button")
+
+  for (let i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener("click", (event) => {
+      const buttonValue = event.target.value;
+      let found = buttonValue.match(/[a-z]/gi)
+      if (found && found.length <= 1) {
+        insertLetter(buttonValue)
+      } else if (buttonValue == "Backspace" && nextLetter !== 0) {
+        deleteLetter()
+      } else {
+        verifyWord()
+      }
+    })
+  }
+})
 
 function initBoard() {
     let board = document.getElementById("word-container");
