@@ -9,18 +9,17 @@ var NUMBER_OF_GUESSES = 6;
 var guessesRemaining = NUMBER_OF_GUESSES;
 let nextLetter = 0; 
 
+//Junta o input do usuário
 function unifyWord(userGuess){
     let palavra = "";
-
     for (let index = 0; index < userGuess.length; index++) {
       palavra += userGuess[index];
     }
-
     return palavra;
 }
 
+//Verifica o input do usuário
 function verifyWord() {
-
     try {
         let palavra = unifyWord(userGuess)
         if(userGuess.length != 5 || !list.includes(palavra)) throw new TypeError("Palavra Invalida");
@@ -50,7 +49,7 @@ function verifyWord() {
              box.classList.add("wrong-letter")
            }
          }
-
+         guessesRemaining--;
          if (palavra === word) {
            alert("Parabéns")
          }
@@ -61,7 +60,7 @@ function verifyWord() {
 
 }
     
-
+//Une a letra
 function insertLetter(key) {
     key = key.toLowerCase();
     let row = document.getElementsByClassName("letter-row")[6 - guessesRemaining];
@@ -72,6 +71,7 @@ function insertLetter(key) {
     nextLetter++;
 }
 
+//Deleta uma letra
 function deleteLetter() {
     let row = document.getElementsByClassName("letter-row")[6 - guessesRemaining]
     let box = row.children[nextLetter-1]
@@ -108,13 +108,7 @@ document.addEventListener('keyup', (e) => {
 
 document.getElementById("enter").addEventListener("click", verifyWord);
 
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Enter") {
-    verifyWord(); 
-    guessesRemaining--; 
-    }
-});
-
+//Faz o teclado virtual funcionar
 document.addEventListener("DOMContentLoaded", () => {
   const buttons = document.getElementsByTagName("button")
 
@@ -126,13 +120,12 @@ document.addEventListener("DOMContentLoaded", () => {
         insertLetter(buttonValue)
       } else if (buttonValue == "Backspace" && nextLetter !== 0) {
         deleteLetter()
-      } else {
-        verifyWord()
       }
     })
   }
 })
 
+//Inicia o teclado
 function initBoard() {
     let board = document.getElementById("word-container");
 
@@ -149,4 +142,5 @@ function initBoard() {
         board.appendChild(row);
     }
 }
+
 initBoard();
