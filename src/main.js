@@ -82,7 +82,7 @@ function insertLetter(key) {
 //Deleta uma letra
 function deleteLetter() {
     let row = document.getElementsByClassName("letter-row")[6 - guessesRemaining]
-    let box = row.children[nextLetter-1]
+    let box = row.children[nextLetter]
     box.textContent = " ";
     userGuess.pop();
     nextLetter--;
@@ -95,7 +95,7 @@ document.addEventListener('keyup', (e) => {
 
     if(guessesRemaining == 0) return;
 
-    if (pressedKey === "Backspace" && nextLetter !== 0) {
+    if (pressedKey === "Backspace") {
         deleteLetter();
         return;
     }
@@ -133,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 })
 
-//Inicia o teclado
+//Inicia o board
 function initBoard() {
     let board = document.getElementById("word-container");
 
@@ -143,7 +143,8 @@ function initBoard() {
         
         for (let j = 0; j < 5; j++) {
             let box = document.createElement("div")
-            box.className = "letter-box"
+            box.className = "letter-box";
+            box.classList.add(j); 
             row.appendChild(box)
         }
 
@@ -152,3 +153,24 @@ function initBoard() {
 }
 
 initBoard();
+
+function addClickListenerToLetterBoxes() {
+  const letterBoxes = document.getElementsByClassName("letter-box");
+  for (let i = 0; i < letterBoxes.length; i++) {;
+    letterBoxes[i].addEventListener("click", handleLetterBoxClick);
+  }
+}
+addClickListenerToLetterBoxes();
+
+function handleLetterBoxClick(event) {
+  let row = document.getElementsByClassName("letter-row")[6 - guessesRemaining];
+  let clickedBox = event.target;
+
+  for (let j = 0; j < row.children.length; j++) {
+    if (row.children[j] === clickedBox) {
+      clickedBox.classList.add("filled-box");
+      nextLetter = j;
+      break;
+    }
+  }
+}
