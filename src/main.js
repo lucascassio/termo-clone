@@ -18,6 +18,18 @@ function unifyWord(userGuess){
     return palavra;
 }
 
+function resetKeyboard(){
+  guessesRemaining--
+  nextLetter = 0
+  userGuess = [];
+}
+
+function verifyVictory(palavra){
+  if (palavra === word) {
+    alert("Parabéns")
+  }
+}
+
 //Verifica o input do usuário
 function verifyWord() {
     try {
@@ -49,14 +61,11 @@ function verifyWord() {
              box.classList.add("wrong-letter")
            }
          }
-         guessesRemaining--;
-         if (palavra === word) {
-           alert("Parabéns")
-         }
+         verifyVictory(palavra)
+         resetKeyboard()
     } catch ({name, message}) {
         alert(message);
     }
-
 }
     
 //Une a letra
