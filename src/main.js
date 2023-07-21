@@ -1,7 +1,7 @@
 
 var userGuess = [];
 
-var list = ["termo"];
+var list = ["termo", "furia", "clero", "pasta"];
 
 var word = "termo";
 
@@ -53,7 +53,6 @@ function verifyWord() {
          if (palavra === word) {
            alert("Parabéns")
          }
-
     } catch ({name, message}) {
         alert(message);
     }
