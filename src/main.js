@@ -76,7 +76,7 @@ function insertLetter(key) {
     box.textContent = key;
     box.classList.add("filled-box");
     userGuess.push(key);
-    nextLetter++;
+    if (nextLetter >= 0 && nextLetter < 4) nextLetter++
 }
 
 //Deleta uma letra
@@ -85,7 +85,7 @@ function deleteLetter() {
     let box = row.children[nextLetter]
     box.textContent = " ";
     userGuess.pop();
-    nextLetter--;
+    if(nextLetter > 0 && nextLetter < 5) nextLetter--;
     box.classList.remove("filled-box");
 }
 
@@ -97,6 +97,7 @@ document.addEventListener('keyup', (e) => {
 
     if (pressedKey === "Backspace") {
         deleteLetter();
+        console.log('deleta')
         return;
     }
 
@@ -144,7 +145,6 @@ function initBoard() {
         for (let j = 0; j < 5; j++) {
             let box = document.createElement("div")
             box.className = "letter-box";
-            box.classList.add(j); 
             row.appendChild(box)
         }
 
@@ -168,7 +168,6 @@ function handleLetterBoxClick(event) {
 
   for (let j = 0; j < row.children.length; j++) {
     if (row.children[j] === clickedBox) {
-      clickedBox.classList.add("filled-box");
       nextLetter = j;
       break;
     }
