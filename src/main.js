@@ -1,7 +1,6 @@
+const pool = require('./server/database'); // Update the path accordingly.
 
 var userGuess = [];
-
-var list = ["termo", "furia", "clero", "pasta"];
 
 var word = "termo";
 
@@ -30,11 +29,27 @@ function verifyVictory(palavra){
   }
 }
 
+async function verifyExistance(palavra) {
+  try {
+    const queryResult = await pool.query(
+      `SELECT COUNT(*) as count FROM palavras WHERE palavra = ?`,
+      [palavra]
+    );
+
+    const wordExists = queryResult[0].count > 0;
+    return wordExists;
+  } catch (err) {
+    console.error("Erro ao verificar a palavra:", err);
+  }
+}
+
+
 //Verifica o input do usuário
-function verifyWord() {
+async function verifyWord() {
     try {
         let palavra = unifyWord(userGuess)
-        if(userGuess.length != 5 || !list.includes(palavra)) throw new TypeError("Palavra Invalida");
+        await verifyExistance(palavra); // Call the verifyVictory function with the unified word
+        if (userGuess.length != 5 && await verifyExistance(palavra)) throw new TypeError("Palavra inválida");
          for (let i = 0; i < 5; i++) {
            if (word.includes(userGuess[i])) {
              if (word[i] === userGuess[i]) {
@@ -173,3 +188,4 @@ function handleLetterBoxClick(event) {
     }
   }
 }
+
