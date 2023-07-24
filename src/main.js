@@ -1,5 +1,3 @@
-const pool = require('./server/database'); // Update the path accordingly.
-
 var userGuess = [];
 
 var word = "termo";
