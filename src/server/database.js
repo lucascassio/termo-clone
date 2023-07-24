@@ -1,21 +1,15 @@
-const express = require('express');
-import mysql from "mysql";
+const Sequelize = require('sequelize');
+const sequelize = new Sequelize("termo", "root", "password", {
+  host: 'localhost',
+  dialect: 'mysql'
+});
 
-const app = new express();
-
-const con = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "password",
-  database: "termo"
-})
-
-app.get('/', (req, res) => {
-  con.query('SELECR * FROM palavras', (err, result) => {
-    res.send(result);
+sequelize.authenticate()
+  .then(function() {
+    console.log("CONEXAO COM O BANCO DE DADOS FEITA COM SUCESSO!");
   })
-})
+  .catch(function(error) {
+    console.error("ERRO! CONEXAO COM O BANCO DE DADOS FALHOU!", error);
+  });
 
-app.listen('3030', () => {
-  console.log('Running server');
-})
+module.exports = sequelize;

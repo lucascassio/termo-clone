@@ -4,14 +4,17 @@
   "description": "Termo é um site popular onde os jogadores tentam adivinhar uma palavra oculta a partir de dicas limitadas. Este projeto foi desenvolvido com o intuito de aprender e praticar programação web.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon database.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
     "mysql": "^2.18.1",
+    "mysql2": "^3.5.2",
+    "sequelize": "^6.32.1"
+  },
+  "devDependencies": {
     "nodemon": "^3.0.1"
   }
 }
