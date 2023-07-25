@@ -1,3 +1,5 @@
+import { wordJson } from '../server/app' 
+
 var userGuess = [];
 
 var word = "termo";
