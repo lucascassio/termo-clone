@@ -1,18 +1,17 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('./database');
+// word.js
+const connection = require('./database');
 
-const Word = sequelize.define('palavra', {
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-  },
-  palavra: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-}, {
-  timestamps: true
-});
+// Function to fetch all words from the database
+const getAllWords = () => {
+  return new Promise((resolve, reject) => {
+    connection.query('SELECT * FROM palavras', (err, results) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(results);
+      }
+    });
+  });
+};
 
-module.exports = Word;
+module.exports = { getAllWords };

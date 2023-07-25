@@ -1,15 +1,15 @@
-const Sequelize = require('sequelize');
-const sequelize = new Sequelize("termo", "root", "password", {
-  host: 'localhost',
-  dialect: 'mysql'
+// db.js
+require('dotenv').config();
+const mysql = require('mysql2');
+
+const connection = mysql.createConnection(process.env.DATABASE_URL);
+
+connection.connect((err) => {
+  if (err) {
+    console.error("ERRO! CONEXAO COM O BANCO DE DADOS FALHOU!", err);
+  } else {
+    console.log("CONEXAO COM O BANCO DE DADOS FEITA COM SUCESSO!");
+  }
 });
 
-sequelize.authenticate()
-  .then(function() {
-    console.log("CONEXAO COM O BANCO DE DADOS FEITA COM SUCESSO!");
-  })
-  .catch(function(error) {
-    console.error("ERRO! CONEXAO COM O BANCO DE DADOS FALHOU!", error);
-  });
-
-module.exports = sequelize;
+module.exports = connection;

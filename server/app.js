@@ -1,36 +1,23 @@
-const express = require("express");
+// app.js
+const express = require('express');
 const app = express();
+const { getAllWords } = require('./word');
 
-const db = require('./database');
-const Word = require('./word');
+// Rest of your application logic...
 
-(async () => {
+// Route to fetch all words from the database
+app.get('/words', async (req, res) => {
   try {
-    await db.authenticate();
-    console.log("CONEXAO COM O BANCO DE DADOS FEITA COM SUCESSO!");
-
-    await db.sync();
-    console.log("Model synchronization completed.");
-
-    app.get("/", async (req, res) => {
-      res.send("Pagina inicial - termo");
-    });
-
-
-app.get("/word", async (req, res) => {
-    try {
-      const words = await Word.findAll();
-      res.json(words);
-    } catch (error) {
-      console.error("Error retrieving words:", error);
-      res.status(500).json({ error: "Internal server error" });
-    }
-  });
-  
-  app.listen(8080, () => {
-      console.log("Servidor iniciado na porta 8080: http://localhost:8080");
-    });
+    const words = await getAllWords();
+    res.json(words);
   } catch (error) {
-    console.error("ERRO! CONEXAO COM O BANCO DE DADOS FALHOU!");
+    console.error('Error retrieving words:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
-})();
+});
+
+// Start the server
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Servidor iniciado na porta ${PORT}: http://localhost:${PORT}`);
+});
