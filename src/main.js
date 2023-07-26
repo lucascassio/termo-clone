@@ -28,6 +28,8 @@
       }
     }
 
+    console.log(getRandomTerm())
+
     async function resetGame() {
       const letterRows = document.getElementsByClassName("letter-row");
       for (let i = 0; i < letterRows.length; i++) {
