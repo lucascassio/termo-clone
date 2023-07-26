@@ -96,7 +96,7 @@ async function verifyExistance(palavra) {
    try {
     const response = await fetch(apiUrl);
     const data = await response.json();
-
+    console.log(data.some(termo => termo.palavra === palavra))
     // Verifica se a palavra existe em algum dos termos
     return data.some(termo => termo.palavra === palavra);
   } catch (error) {
@@ -110,8 +110,8 @@ async function verifyWord() {
     try {
 
         let palavra = unifyWord(userGuess)
-        const exists = await verifyExistance(palavra); 
-        if (userGuess.length != 5 && !exists) throw new Error("Palavra inválida");
+        let exists = await verifyExistance(palavra); 
+        if (userGuess.length != 5 || !exists) throw new Error("Palavra inválida");
          for (let i = 0; i < 5; i++) {
            if (word.includes(userGuess[i])) {
              if (word[i] === userGuess[i]) {
