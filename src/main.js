@@ -46,7 +46,6 @@ async function initBoard() {
 initBoard();
 
 
-
 var userGuess = [];
 
 const NUMBER_OF_GUESSES = 6;
@@ -68,9 +67,28 @@ function resetKeyboard(){
   userGuess = [];
 }
 
-async function verifyVictory(palavra){
+async function resetGame() {
+  // Limpa o tabuleiro
+  const letterRows = document.getElementsByClassName("letter-row");
+  for (let i = 0; i < letterRows.length; i++) {
+    const boxes = letterRows[i].getElementsByClassName("letter-box");
+    for (let j = 0; j < boxes.length; j++) {
+      boxes[j].textContent = "";
+      boxes[j].classList.remove("right-letter", "middle-letter", "wrong-letter", "filled-box");
+    }
+  }
+
+  // Obtém um novo termo aleatório
+  word = await obterTermoAleatorio();
+
+  // Restaura o número de tentativas restantes
+  guessesRemaining = NUMBER_OF_GUESSES;
+}
+
+async function verifyVictory(palavra) {
   if (palavra === word) {
-    alert("Parabéns")
+    await new Promise(resolve => setTimeout(resolve, 1500)); // Atraso de 2 segundos
+    await resetGame(); // Chama a função resetGame para reiniciar o jogo
   }
 }
 
@@ -218,3 +236,4 @@ function handleLetterBoxClick(event) {
     }
   }
 }
+
