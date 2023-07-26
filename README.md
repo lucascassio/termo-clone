@@ -31,4 +31,5 @@ O site foi hospedado utilizando a plataforma PlanetScale, que é uma solução d
 O projeto do Clone do Site Termo contou com a colaboração dos seguintes desenvolvedores:
 
 Lucas Cassio Costa
+
 Nicolas Von Dolinger
