@@ -14,7 +14,18 @@ body {
   grid-gap: 5px;
   max-width: 100vh;
   margin: 0 auto;
-  
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.keyboard div {
+  display: flex;
+}
+
+.second-row {
+  margin: 0.5rem 0;
 }
 
 .keyboard button {
@@ -26,14 +37,20 @@ body {
   border-radius: 5px;
   cursor: pointer;
   color: white;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.5rem;
+  margin: 0 2px;
+  cursor: pointer;
+  text-transform: uppercase;
 }
 
 .keyboard button.enter {
-  grid-column: 7 / span 4; /* Place the "Enter" button after "M" and span 3 columns */
+   width: 110px;
 }
 
 .keyboard button.backspace {
-  grid-column: 6 / span 3; /* Place the "Backspace" button after "L" and span 2 columns */
+   width: 70px;
 }
 
 @media (max-width: 480px) {
