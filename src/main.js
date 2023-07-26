@@ -15,7 +15,7 @@
       return cachedTerms;
     }
 
-    async function obterTermoAleatorio() {
+    async function getRandomTerm() {
       try {
         const terms = await fetchTerms();
         const indiceAleatorio = Math.floor(Math.random() * terms.length);
@@ -26,6 +26,8 @@
         throw error;
       }
     }
+
+    console.log(getRandomTerm())
 
     async function resetGame() {
       const letterRows = document.getElementsByClassName("letter-row");
