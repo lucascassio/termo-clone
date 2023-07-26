@@ -23,9 +23,15 @@ GitHub: Plataforma de hospedagem de repositórios Git, onde o projeto foi compar
 
 ## API e Hospedagem
 
-Além das funcionalidades do jogo, o projeto evoluiu para incluir uma API para melhor gerenciamento dos dados do jogo. Para isso, foi utilizado o banco de dados MySQL para armazenar informações relevantes, como as palavras ocultas geradas aleatoriamente para cada partida e os registros dos jogadores.
+Para aprimorar a experiência do jogo e torná-lo mais abrangente, foi desenvolvida uma API que permite um melhor gerenciamento dos dados e a inclusão de um banco de dados com aproximadament 6000 palavras da língua portuguesa com 5 caracteres. Esse banco de dados foi criado por nossa equipe para fornecer uma ampla variedade de palavras para os jogadores adivinharem durante as partidas.
 
-O site foi hospedado utilizando a plataforma PlanetScale, que é uma solução de hospedagem para bancos de dados MySQL em escala planetária. Essa escolha permitiu a escalabilidade e confiabilidade do banco de dados, garantindo um bom desempenho mesmo com o crescimento do número de jogadores e partidas.
+A escolha do banco de dados MySQL foi feita para garantir a eficiência e a segurança no armazenamento dessas palavras, bem como para facilitar a sua recuperação durante as sessões de jogo.
+
+Para proporcionar uma hospedagem escalável e de alta performance, optamos por utilizar o serviço de hospedagem em nuvem fornecido pelo PlanetScale. Essa plataforma é reconhecida por sua capacidade de gerenciar bancos de dados MySQL em escala global, garantindo um acesso rápido e confiável aos dados para os jogadores em qualquer lugar do mundo.
+
+Através da integração da API com o banco de dados hospedado no PlanetScale, o jogo agora é capaz de buscar aleatoriamente as palavras para cada partida, tornando cada desafio único e emocionante.
+
+Com essa adição, o Clone do Site Termo proporciona aos jogadores uma experiência mais rica e diversificada, expandindo o universo de palavras para adivinhar e desafiando-os a testar seus conhecimentos em um amplo espectro da língua portuguesa.
 
 ## Contribuidores
 
