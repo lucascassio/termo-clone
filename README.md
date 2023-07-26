@@ -18,10 +18,10 @@ Ao final da partida, o jogador tem a opção de iniciar um novo jogo para tentar
 O projeto do Clone do Site Termo foi construído utilizando as seguintes tecnologias:
 
 HTML5, CSS3 e JavaScript: Linguagens de marcação e programação web para criar a interface do jogo e gerenciar as interações com o usuário.
-Bootstrap: Framework CSS que permitiu o desenvolvimento responsivo e a estilização moderna da interface do jogo.
 Git: Sistema de controle de versão utilizado para gerenciar o projeto, controlar versões e possibilitar o trabalho colaborativo.
 GitHub: Plataforma de hospedagem de repositórios Git, onde o projeto foi compartilhado e publicado.
-API e Hospedagem
+
+## API e Hospedagem
 
 Além das funcionalidades do jogo, o projeto evoluiu para incluir uma API para melhor gerenciamento dos dados do jogo. Para isso, foi utilizado o banco de dados MySQL para armazenar informações relevantes, como as palavras ocultas geradas aleatoriamente para cada partida e os registros dos jogadores.
 
