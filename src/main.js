@@ -153,6 +153,7 @@ function insertLetter(key) {
     box.textContent = key;
     userGuess.push(key);
     if (nextLetter >= 0 && nextLetter < 4) nextLetter++
+    box.classList.add("filled-box");
 }
 
 //Deleta uma letra
