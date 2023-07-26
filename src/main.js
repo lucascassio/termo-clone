@@ -196,6 +196,3 @@
     }
 
     initBoard();
-  </script>
-</body>
-</html>
