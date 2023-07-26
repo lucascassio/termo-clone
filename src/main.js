@@ -37,7 +37,7 @@
           boxes[j].className = "letter-box";
         }
       }
-      word = await obterTermoAleatorio();
+      word = await getRandomTerm();
       guessesRemaining = NUMBER_OF_GUESSES;
       userGuess = [];
       nextLetter = 0;
@@ -178,7 +178,7 @@
 
     async function initBoard() {
       const board = document.getElementById("word-container");
-      word = await obterTermoAleatorio();
+      word = await getRandomTerm();
       for (let i = 0; i < NUMBER_OF_GUESSES; i++) {
         const row = document.createElement("div");
         row.className = "letter-row";
