@@ -1,34 +1,72 @@
-
     const apiUrl = 'https://termo-api.vercel.app/words';
-
     const NUMBER_OF_GUESSES = 6;
+
+    let word;
+    let termosCache = [];
+    let palavrasExistentesCache = new Set();
+    let userGuess = [];
     let guessesRemaining = NUMBER_OF_GUESSES;
     let nextLetter = 0;
-    let userGuess = [];
-    let word;
-    let cachedTerms = [];
 
-    async function fetchTerms() {
-      if (cachedTerms.length === 0) {
-        const response = await fetch(apiUrl);
-        cachedTerms = await response.json();
+    async function obterTermoAleatorio() {
+      if (termosCache.length > 0) {
+        const indiceAleatorio = Math.floor(Math.random() * termosCache.length);
+        const termoSelecionado = termosCache[indiceAleatorio];
+        termosCache.splice(indiceAleatorio, 1);
+        console.log('Palavra aleatória selecionada:', termoSelecionado.palavra); // Exibe a palavra aleatória no console
+        return termoSelecionado.palavra;
       }
-      return cachedTerms;
-    }
 
-    async function getRandomTerm() {
       try {
-        const terms = await fetchTerms();
-        const randomIndex = Math.floor(Math.random() * terms.length);
-        const SelectedTerm = terms[randomIndex];
-        return SelectedTerm.palavra;
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        termosCache = data.slice();
+        const indiceAleatorio = Math.floor(Math.random() * termosCache.length);
+        const termoSelecionado = termosCache[indiceAleatorio];
+        termosCache.splice(indiceAleatorio, 1);
+        return termoSelecionado.palavra;
       } catch (error) {
         console.error('Erro na requisição:', error);
         throw error;
       }
     }
 
-    console.log(getRandomTerm())
+    async function verifyExistance(palavra) {
+      if (palavrasExistentesCache.has(palavra)) {
+        return true;
+      }
+
+      try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        const exists = data.some((termo) => termo.palavra === palavra);
+        if (exists) {
+          palavrasExistentesCache.add(palavra);
+        }
+        return exists;
+      } catch (error) {
+        console.error('Erro na requisição:', error);
+      }
+    }
+
+    async function initBoard() {
+      const board = document.getElementById("word-container");
+      word = await obterTermoAleatorio();
+      for (let i = 0; i < NUMBER_OF_GUESSES; i++) {
+        const row = document.createElement("div");
+        row.className = "letter-row";
+        
+        for (let j = 0; j < 5; j++) {
+          const box = document.createElement("div");
+          box.className = "letter-box";
+          row.appendChild(box);
+        }
+
+        board.appendChild(row);
+      }
+
+      addClickListenerToLetterBoxes();
+    }
 
     async function resetGame() {
       const letterRows = document.getElementsByClassName("letter-row");
@@ -36,13 +74,12 @@
         const boxes = letterRows[i].getElementsByClassName("letter-box");
         for (let j = 0; j < boxes.length; j++) {
           boxes[j].textContent = "";
-          boxes[j].className = "letter-box";
+          boxes[j].classList.remove("right-letter", "middle-letter", "wrong-letter", "filled-box");
         }
       }
-      word = await getRandomTerm();
+
+      word = await obterTermoAleatorio();
       guessesRemaining = NUMBER_OF_GUESSES;
-      userGuess = [];
-      nextLetter = 0;
     }
 
     async function verifyVictory(palavra) {
@@ -52,23 +89,18 @@
       }
     }
 
-    async function verifyExistance(palavra) {
-      const terms = await fetchTerms();
-      return terms.some(termo => termo.palavra === palavra);
-    }
-
     function unifyWord(userGuess) {
-      return userGuess.join('');
+      let palavra = "";
+      for (let index = 0; index < userGuess.length; index++) {
+        palavra += userGuess[index];
+      }
+      return palavra;
     }
 
     function resetKeyboard() {
       guessesRemaining--;
       nextLetter = 0;
       userGuess = [];
-      const letterBoxes = document.getElementsByClassName("letter-box");
-      for (let i = 0; i < letterBoxes.length; i++) {
-        letterBoxes[i].classList.remove("filled-box");
-      }
     }
 
     async function verifyWord() {
@@ -76,6 +108,7 @@
         let palavra = unifyWord(userGuess);
         let exists = await verifyExistance(palavra);
         if (userGuess.length != 5 || !exists) throw new Error("Palavra inválida");
+
         const letterRows = document.getElementsByClassName("letter-row")[6 - guessesRemaining];
         for (let i = 0; i < 5; i++) {
           if (word.includes(userGuess[i])) {
@@ -88,6 +121,7 @@
             letterRows.children[i].classList.add("wrong-letter");
           }
         }
+
         verifyVictory(palavra);
         resetKeyboard();
       } catch ({ name, message }) {
@@ -115,9 +149,8 @@
     }
 
     document.addEventListener('keyup', (e) => {
-      const pressedKey = String(e.key);
-
-      if (guessesRemaining === 0) return;
+      let pressedKey = String(e.key);
+      if (guessesRemaining == 0) return;
 
       if (pressedKey === "Backspace") {
         deleteLetter();
@@ -129,7 +162,7 @@
         return;
       }
 
-      const found = pressedKey.match(/[a-z]/gi);
+      let found = pressedKey.match(/[a-z]/gi);
       if (!found || found.length > 1) {
         return;
       } else {
@@ -145,10 +178,10 @@
       for (let i = 0; i < buttons.length; i++) {
         buttons[i].addEventListener("click", (event) => {
           const buttonValue = event.target.value;
-          const found = buttonValue.match(/[a-z]/gi);
+          let found = buttonValue.match(/[a-z]/gi);
           if (found && found.length <= 1) {
             insertLetter(buttonValue);
-          } else if (buttonValue === "Backspace" && nextLetter !== 0) {
+          } else if (buttonValue == "Backspace" && nextLetter !== 0) {
             deleteLetter();
           }
         });
@@ -161,8 +194,6 @@
         letterBoxes[i].addEventListener("click", handleLetterBoxClick);
       }
     }
-
-    addClickListenerToLetterBoxes();
 
     function handleLetterBoxClick(event) {
       const letterRows = document.getElementsByClassName("letter-row")[6 - guessesRemaining];
@@ -177,24 +208,3 @@
         }
       }
     }
-
-    async function initBoard() {
-      const board = document.getElementById("word-container");
-      word = await getRandomTerm();
-      for (let i = 0; i < NUMBER_OF_GUESSES; i++) {
-        const row = document.createElement("div");
-        row.className = "letter-row";
-
-        for (let j = 0; j < 5; j++) {
-          const box = document.createElement("div");
-          box.className = "letter-box";
-          row.appendChild(box);
-        }
-
-        board.appendChild(row);
-      }
-
-      addClickListenerToLetterBoxes();
-    }
-
-    initBoard();
