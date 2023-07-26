@@ -1,48 +1,51 @@
 body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-    }
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #8DA3F0;
+}
 
-    .keyboard {
-      position: fixed; /* Altera para position fixed */
-      bottom: 0; /* Posiciona na parte inferior */
-      left: 50%; /* Centraliza horizontalmente */
-      transform: translateX(-50%); /* Centraliza horizontalmente */
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-bottom: 20px; /* Adiciona uma margem inferior para evitar que o teclado fique colado ao conteúdo abaixo */
-    }
+.keyboard {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-gap: 5px;
+  max-width: 100vh;
+  margin: 0 auto;
+  
+}
 
-    .keyboard button {
-      width: 50px;
-      height: 50px;
-      margin: 5px;
-      font-size: 18px;
-      background-color: #f2f2f2;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+.keyboard button {
+  width: 50px;
+  height: 50px;
+  font-size: 18px;
+  background-color: #5063A3;
+  border: 1px solid #5063A3;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+}
 
-    .keyboard button.enter {
-      width: 110px; /* Largura maior para o botão "Enter" */
-    }
+.keyboard button.enter {
+  grid-column: 7 / span 4; /* Place the "Enter" button after "M" and span 3 columns */
+}
 
-    .keyboard button.backspace {
-      width: 70px; /* Largura menor para o botão "Backspace" */
-    }
+.keyboard button.backspace {
+  grid-column: 6 / span 3; /* Place the "Backspace" button after "L" and span 2 columns */
+}
 
-    @media (max-width: 480px) {
-      .keyboard button {
-        width: 40px;
-        height: 40px;
-        font-size: 14px;
-      }
+@media (max-width: 480px) {
+  .keyboard button {
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+  }
 }
 
 h1 {
-  color: #333;
+  color: white;
   font-weight: 600;
   font-size: 4vh;
   line-height: 6vh;
@@ -60,27 +63,26 @@ h1 {
   font-size: 24px;
   font-weight: bold;
   color: #333;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
-#guess-input {
-  padding: 8px;
-  font-size: 16px;
-}
-
-#guess-button {
-  padding: 8px 16px;
-  font-size: 16px;
-  background-color: #333;
-  color: #fff;
-  border: none;
+.letter-box {
+  border: 4px solid #5063A3;
+  border-radius: 10px;
+  margin: 5px;
+  font-size: 4vw;
+  font-weight: 700;
+  height: 6vw;
+  width: 6vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
   cursor: pointer;
-}
-
-#feedback-container {
-  margin-top: 20px;
-  font-size: 18px;
-  font-weight: bold;
-  color: #333;
+  color: white;
 }
 
 #word-container {
@@ -91,8 +93,8 @@ h1 {
 }
 
 .letter-box {
-  border: 2px solid gray;
-  border-radius: 3px;
+  border: 4px solid #5063A3;
+  border-radius: 10px;
   margin: 2px;
   font-size: 2.5rem;
   font-weight: 700;
@@ -102,10 +104,12 @@ h1 {
   justify-content: center;
   align-items: center;
   text-transform: uppercase;
+  cursor: pointer;
+  color: white;
 }
 
 .filled-box {
-  border: 2px solid black;
+  border: 4px solid #223e9b;
 }
 
 .letter-row {
@@ -113,13 +117,16 @@ h1 {
 }
 
 .wrong-letter {
-  color: red;
+  background-color: #0f2366;
+  border: 4px solid #0f2366;
 }
 
 .middle-letter {
-  color: yellow;
+  background-color: #f0ed30;
+  border: 4px solid #f0ed30;
 }
 
 .right-letter {
-  color: green;
+  background-color: #9eec44;
+  border: 4px solid #9eec44;
 }
