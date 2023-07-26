@@ -12,7 +12,8 @@ Após cada tentativa, o jogador recebe dicas sobre a sua palavra, informando qua
 O jogador pode inserir suas tentativas digitando as letras desejadas em uma caixa de entrada.
 O jogo valida a entrada do jogador, garantindo que sejam inseridas apenas letras válidas.
 Ao final da partida, o jogador tem a opção de iniciar um novo jogo para tentar adivinhar uma nova palavra.
-Tecnologias Utilizadas
+
+## Tecnologias Utilizadas
 
 O projeto do Clone do Site Termo foi construído utilizando as seguintes tecnologias:
 
