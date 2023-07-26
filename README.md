@@ -1,4 +1,4 @@
-## Clone do Site Termo - Descrição
+## Clone do Site Termo
 
 O Clone do Site Termo é um projeto web desenvolvido com o objetivo de reproduzir o funcionamento do site popular chamado "Termo". Esse site permite que os jogadores participem de um jogo onde devem adivinhar uma palavra oculta a partir de dicas limitadas. O projeto foi criado com a finalidade de aprender e praticar programação web, utilizando tecnologias como HTML5, CSS3 e JavaScript para construir a interface do jogo e permitir as interações com o usuário. O framework CSS Bootstrap também foi utilizado para desenvolver a interface responsiva e estilizada do jogo.
 
