@@ -238,7 +238,11 @@ function handleLetterBoxClick(event) {
   for (let j = 0; j < row.children.length; j++) {
     if (row.children[j] === clickedBox) {
       row.children[j].classList.add("filled-box");
-      nextLetter = j;
+      if(lastDeletedLetterIndex >= 0) {
+        lastDeletedLetterIndex = j;
+      } else {
+        nextLetter = j;
+      }
     } else {
       row.children[j].classList.remove("filled-box");
     }
