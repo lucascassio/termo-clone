@@ -159,3 +159,70 @@ h1 {
   font-size: 14px;
   color: white;
 }
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+  display: none;
+}
+
+.popup p {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.popup button {
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #5063A3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.popup.success-popup {
+  border: 2px solid #9eec44;
+}
+
+.popup.error-popup {
+  border: 2px solid #e74c3c;
+}
+
+.keyboard button.backspace {
+  width: 50px; /* Adjust the width and height to fit the SVG */
+  height: 50px;
+  font-size: 18px;
+  background-color: #5063A3;
+  border: 1px solid #5063A3;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0;
+  margin: 0 2px;
+  cursor: pointer;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative; /* Add position relative to the button */
+}
+
+.keyboard button.backspace svg {
+  width: 24px; /* Set the desired size for the SVG */
+  height: 24px;
+  position: absolute; /* Position the SVG absolutely within the button */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+

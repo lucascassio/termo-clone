@@ -5,6 +5,7 @@ let dataCache = null;
 let userGuess = [];
 let guessesRemaining = NUMBER_OF_GUESSES;
 let nextLetter = 0; 
+let lastDeletedLetterIndex = -1; 
 
 async function fetchTermsFromAPI() {
   try {
@@ -88,10 +89,29 @@ async function resetGame() {
 
 async function verifyVictory(userWord) {
   if (userWord === word) {
+    showPopup('success');
     await new Promise(resolve => setTimeout(resolve, 1500));
     await resetGame();
   }
 }
+
+function showPopup(type, correctWord) {
+  const popup = document.querySelector(`.popup.${type}-popup`);
+  const correctWordSpan = popup.querySelector('.correct-word');
+  if (type === 'error') {
+    correctWordSpan.textContent = correctWord;
+  }
+  popup.style.display = 'block';
+}
+
+function hidePopup() {
+  const popups = document.querySelectorAll('.popup');
+  popups.forEach(popup => popup.style.display = 'none');
+}
+
+document.querySelectorAll('.close-button').forEach(button => {
+  button.addEventListener('click', hidePopup);
+});
 
 async function verifyExistence(userWord) {
   try {
@@ -125,32 +145,44 @@ async function verifyWord() {
       }
     }
     verifyVictory(userWord);
+    if (guessesRemaining === 1) {
+      showPopup('error', word);
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      resetGame();
+    }
     resetKeyboard();
   } catch ({name, message}) {
     alert(message);
   }
 }
 
-function insertLetter(key) {
-  key = key.toLowerCase();
+function deleteLetter() {
   let row = document.getElementsByClassName("letter-row")[6 - guessesRemaining];
   let box = row.children[nextLetter];
-  box.textContent = key;
-  userGuess.push(key);
-  if (nextLetter >= 0 && nextLetter < 4) nextLetter++;
-  box.classList.add("filled-box");
-}
-
-function deleteLetter() {
-  let row = document.getElementsByClassName("letter-row")[6 - guessesRemaining]
-  let box = row.children[nextLetter]
   box.textContent = " ";
+  lastDeletedLetterIndex = nextLetter; // Update the lastDeletedLetterIndex to the current box index.
   userGuess.pop();
-  if(nextLetter > 0 && nextLetter < 5) nextLetter--;
+  if (nextLetter > 0 && nextLetter < 5) nextLetter--;
   box.classList.remove("filled-box");
 }
 
-document.addEventListener('keyup', (e) => {
+function insertLetter(key) {
+  key = key.toLowerCase();
+  let row = document.getElementsByClassName("letter-row")[6 - guessesRemaining];
+  let box = row.children[lastDeletedLetterIndex >= 0 ? lastDeletedLetterIndex : nextLetter]; // Use lastDeletedLetterIndex if available, otherwise use nextLetter.
+  box.textContent = key;
+  userGuess.push(key);
+  if (lastDeletedLetterIndex >= 0) {
+    // If a letter was deleted previously, update nextLetter to lastDeletedLetterIndex.
+    nextLetter = lastDeletedLetterIndex;
+    lastDeletedLetterIndex = -1; // Reset lastDeletedLetterIndex back to -1 after using it.
+  } else if (nextLetter >= 0 && nextLetter < 4) {
+    nextLetter++;
+  }
+  box.classList.add("filled-box");
+}
+
+document.addEventListener('keydown', (e) => {
   let pressedKey = String(e.key);
   if(guessesRemaining === 0) return;
 
@@ -173,6 +205,7 @@ document.addEventListener('keyup', (e) => {
 });
 
 document.getElementById("enter").addEventListener("click", verifyWord);
+document.getElementById("backspace").addEventListener("click", deleteLetter);
 
 document.addEventListener("DOMContentLoaded", () => {
   const buttons = document.getElementsByTagName("button");
@@ -204,15 +237,10 @@ function handleLetterBoxClick(event) {
 
   for (let j = 0; j < row.children.length; j++) {
     if (row.children[j] === clickedBox) {
-      row.children[j].classList.add("filled-box")
+      row.children[j].classList.add("filled-box");
       nextLetter = j;
-      break;
-    }
-  }
-
-  for (let j = 0; j < row.children.length; j++) {
-    if (row.children[j] !==  clickedBox) {
-      row.children[j].classList.remove("filled-box")
+    } else {
+      row.children[j].classList.remove("filled-box");
     }
   }
 }
