@@ -13,7 +13,7 @@
         const indiceAleatorio = Math.floor(Math.random() * termosCache.length);
         const termoSelecionado = termosCache[indiceAleatorio];
         termosCache.splice(indiceAleatorio, 1);
-        return termoSelecionado.palavra;
+        return termoSelecionado;
       }
 
       try {
@@ -23,7 +23,7 @@
         const indiceAleatorio = Math.floor(Math.random() * termosCache.length);
         const termoSelecionado = termosCache[indiceAleatorio];
         termosCache.splice(indiceAleatorio, 1);
-        return termoSelecionado.palavra;
+        return termoSelecionado;
       } catch (error) {
         console.error('Erro na requisição:', error);
         throw error;
@@ -50,8 +50,9 @@
 
     async function initBoard() {
       const board = document.getElementById("word-container");
-      word = await obterTermoAleatorio();
-      console.log('Palavra aleatória selecionada:', word); // Exibe a palavra aleatória no console
+      const termoSelecionado = await obterTermoAleatorio();
+      word = termoSelecionado.palavra;
+      console.log('Palavra aleatória selecionada (ID:', termoSelecionado.id, '):', word); // Exibe o JSON completo da palavra aleatória no console
       for (let i = 0; i < NUMBER_OF_GUESSES; i++) {
         const row = document.createElement("div");
         row.className = "letter-row";
@@ -78,8 +79,11 @@
         }
       }
 
-      word = await obterTermoAleatorio();
+      word = '';
+      termosCache = [];
+      palavrasExistentesCache = new Set();
       guessesRemaining = NUMBER_OF_GUESSES;
+      await initBoard();
     }
 
     async function verifyVictory(palavra) {
