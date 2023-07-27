@@ -238,13 +238,14 @@ function handleLetterBoxClick(event) {
   for (let j = 0; j < row.children.length; j++) {
     if (row.children[j] === clickedBox) {
       row.children[j].classList.add("filled-box");
-      if(lastDeletedLetterIndex >= 0) {
-        lastDeletedLetterIndex = j;
-      } else {
-        nextLetter = j;
-      }
+      nextLetter = j;
     } else {
       row.children[j].classList.remove("filled-box");
     }
   }
+
+  // Set lastDeletedLetterIndex to -1 when the user clicks a box to insert a new letter.
+  lastDeletedLetterIndex = -1;
 }
+
+
