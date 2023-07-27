@@ -83,7 +83,6 @@
       termosCache = [];
       palavrasExistentesCache = new Set();
       guessesRemaining = NUMBER_OF_GUESSES;
-      await initBoard();
     }
 
     async function verifyVictory(palavra) {
