@@ -226,3 +226,43 @@ h1 {
   transform: translate(-50%, -50%);
 }
 
+@media (max-width: 480px) {
+  .keyboard {
+    bottom: 5px;
+    grid-gap: 3px;
+  }
+
+  .keyboard div {
+    flex-wrap: wrap;
+  }
+
+  .keyboard button {
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+  }
+
+  .keyboard button.enter {
+    width: 50px;
+  }
+
+  .keyboard button.backspace {
+    width: 35px;
+  }
+
+  .letter-box {
+    font-size: 3vw;
+    height: 5vw;
+    width: 5vw;
+  }
+
+  h1 {
+    font-size: 18px;
+    line-height: 24px;
+    height: 24px;
+  }
+
+  #word-container {
+    font-size: 16px;
+  }
+}
