@@ -79,16 +79,15 @@
         }
       }
 
-      word = '';
-      termosCache = [];
-      palavrasExistentesCache = new Set();
       guessesRemaining = NUMBER_OF_GUESSES;
+      userGuess = [];
+      nextLetter = 0;
     }
 
     async function verifyVictory(palavra) {
       if (palavra === word) {
         await new Promise(resolve => setTimeout(resolve, 1500));
-        await resetGame();
+        resetGame();
       }
     }
 
