@@ -266,3 +266,15 @@ h1 {
     font-size: 16px;
   }
 }
+
+@media (max-width: 360px) {
+  .keyboard button {
+    width: 30px;
+    height: 30px;
+    font-size: 12px;
+  }
+
+  .keyboard button.backspace {
+    width: 40px;
+  }
+}
