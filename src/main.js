@@ -248,4 +248,13 @@ function handleLetterBoxClick(event) {
   lastDeletedLetterIndex = -1;
 }
 
+let lastClickTime = 0;
 
+document.addEventListener('click', function(event) {
+    const currentTime = new Date().getTime();
+    const tapLength = currentTime - lastClickTime;
+    if (tapLength < 500 && tapLength > 0) {
+      event.preventDefault();
+    }
+    lastClickTime = currentTime;
+});
